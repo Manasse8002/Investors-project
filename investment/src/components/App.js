@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './Home'; 
+import Navbar from './components/Navbar';
+import Home from './components/Homepage';
+import About from './components/About';
+import Actions from './components/Actions';
 import InvestorsTable from './InvestorsTable';
 import InvestmentsTable from './InvestmentsTable';
 import LossesTable from './LossTable';
@@ -11,10 +14,11 @@ function App() {
     <Router> 
       <div>
         <main>
+          <Navbar />
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path='/actions' element={<Actions />} />
             <Route exact path="/InvestmentsTable/:id">
               <InvestmentsTable /> 
             </Route>
