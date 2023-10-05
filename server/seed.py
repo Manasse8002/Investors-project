@@ -2,12 +2,13 @@ from models import db, Investment, Investor, Transaction, ProfitLoss
 from faker import Faker
 import random
 from datetime import  timedelta
-from models import db 
+from app import app 
 
 fake = Faker() 
 
 
 def seed_database():
+ with app.app_context():
 
     Investment.query.delete()
     Investor.query.delete()
@@ -67,8 +68,12 @@ def seed_database():
         def SeedingTransactions():
             print("💸Seeding transactions...")
         SeedingTransactions()
-
-        for _ in range(random.randint(1, 10)):
+       
+   
+    with db.session.begin() as session:
+     for _ in range(random.randint(1, 10)):
+        try:
+          if investment.id is not None:
             transaction = Transaction (
                 investment_id=investment.id,
                 transaction_type=random.choice(['buy', 'sell']),
@@ -76,17 +81,29 @@ def seed_database():
                 transaction_amount=random.uniform(1500, 150000),
                 transaction_units=random.uniform(1, 100)
             )
-            db.session.add(transaction)
+            session.add(transaction)
+          else:
+            print("Invalid investment ID:", investment.id)
+
+        except Exception as e:
+            print("Error adding transaction:", e)
+            session.rollback()
 
             def SeedingTransactionsDone():
              print("💸Seeding transactions...Done!")
              SeedingTransactionsDone()
 
-db.session.commit()
+    db.session.commit()
+
+if __name__ == "__main__":
+    seed_database()
+
 
 def SeedingDone():
     print("💸Seeding...Done!")
     SeedingDone()
+
+
 
 
 
