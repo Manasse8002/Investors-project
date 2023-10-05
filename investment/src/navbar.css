@@ -57,7 +57,7 @@ a {
     right: 0;
     height: 93vh;
     width: 50vw;
-    background: rgb(0, 33, 65);
+    background: #7934db;
     flex-direction: column;
     transform: translateX(100%);
     transition: 0.5s ease-in;
