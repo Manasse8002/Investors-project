@@ -12,8 +12,13 @@ migrate = Migrate(db, app)
 db.init(app)
 
 @app.route('/invest', methods=['GET'])
-def investor():
-    return jsonify(investor)
+def get_investor_data():
+    #query the database to get investor data
+    investors = Investor.query.all()
+    
+     investor_list = [{'id': investor.id, 'username': investor.username, 'email': investor.email} for investor in investors]
+    
+     return jsonify(investor_list)
 
 # Seeding the database
 @app.route('/seed-database', methods=['GET'])
@@ -91,6 +96,8 @@ def seed_database():
     SeedingTransactions()
 
     for _ in range(random.randint(1, 10)):
+        investor = Investor.query.order_by(func.random()).first()  # Get a random investor
+        investment = Investment.query.order_by(func.random()).first() 
         transaction = Transaction(
             investment_id=investment.id,
             transaction_type=random.choice(['buy', 'sell']),
