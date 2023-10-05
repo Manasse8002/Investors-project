@@ -11,6 +11,25 @@ migrate = Migrate(db, app)
 
 db.init(app)
 
-if __name__ == ('__main__'):
+@app.route('/invest', methods=['GET'])
+def get_investor_data():
+    #query the database to get investor data
+    investors = Investor.query.all()
+    
+     investor_list = [{'id': investor.id, 'username': investor.username, 'email': investor.email} for investor in investors]
+    
+     return jsonify(investor_list)
+ 
+if __name__ == '__main__':
     with app.app_context():
         app.run(port=5555, debug=True)
+
+
+
+
+
+
+
+    
+
+
