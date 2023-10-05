@@ -33,8 +33,9 @@ def get_profit_loss():
     profit_loss_records = ProfitLoss.query.all()
     profit_loss_list = [{'id': record.id, 'investment_id': record.investment_id, 'amount': record.profit_or_loss_amount, 'date':record.transcation_date.strftime('%Y-%m-%d')} for record in profit_loss_records]
     return jsonify(profit_loss_list)
-
-if __name__ == ('__main__'):
+ 
+if __name__ == '__main__':
     with app.app_context():
         app.run(port=5555, debug=True)
+
          
