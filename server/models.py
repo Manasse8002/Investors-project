@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from sqlalchemy import MetaData, ForeignKey
+from sqlalchemy import MetaData
 from sqlalchemy.orm import validates 
 
 
@@ -41,7 +41,7 @@ class Investment(db.Model):
      __tablename__ = 'investments'
 
      id = db.Column(db.Integer, primary_key=True)
-     investor_id = db.Column(db.Integer, db.ForeignKey('investors.id'))
+     investor_id = db.Column(db.Integer, db.ForeignKey('investors.id'), nullable=False)
      name = db.Column(db.String, nullable=False)
      amount = db.Column(db.Float, nullable= False)
      date = db.Column(db.Date)
@@ -56,14 +56,13 @@ class ProfitLoss (db.Model):
      __tablename__ = 'profitandloss'
 
      id = db.Column(db.Integer, primary_key=True)
-     investment_id = db.Column(db.Integer, db.ForeignKey('investments.id'))
-     investor_id = db.Column(db.Integer, db.ForeignKey('investors.id'))
+     investment_id = db.Column(db.Integer, db.ForeignKey('investments.id'), nullable=False)
+     investor_id = db.Column(db.Integer, db.ForeignKey('investors.id'), nullable=False)
      profit_loss_amount = db.Column(db.Float)
      transaction_date = db.Column(db.Date)
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
      updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-     
 
 
 class Transaction(db.Model):
