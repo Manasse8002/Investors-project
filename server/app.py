@@ -29,6 +29,12 @@ def get_transactions():
     transaction_list = [{'id': transaction.id, 'investment_id': transaction.investment.id, 'type': transaction.transaction_type, 'amount': transaction.amount, 'units': transaction.transaction_units, 'date': transaction.transaction_date_strftime('%Y-%m-%d')} for transaction in transactions]
     return jsonify(transaction_list)
 
+@app.route('/profit-loss', methods=['GET'])
+def get_profit_loss():
+    profit_loss_records = ProfitLoss.query.all()
+    profit_loss_list = [{'id': record.id, 'investment_id': record.investment_id, 'amount': record.profit_or_loss_amount, 'date':record.transcation_date.strftime('%Y-%m-%d')} for record in profit_loss_records]
+    return jsonify(profit_loss_list)
+
 if __name__ == ('__main__'):
     with app.app_context():
         app.run(port=5555, debug=True)
