@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from werkzueg.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from sqlalchemy import MetaData
 from sqlalchemy.orm import validates 
@@ -24,7 +24,7 @@ class Investor(db.Model):
      email = db.Column(db.String, unique= True, nullable=False)
      password_hash = db.Column(db.String, nullable=False)
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
-     updated_at = db.Column(db.DateTime, deafult=datetime.utcnow, onupdate=datetime.utcnow)
+     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
      investments = db.relationship('Investment', backref='investor', lazy=True)
      profit_loss_records = db.relationship('ProfitLoss', backref='investor', lazy=True)
@@ -46,7 +46,7 @@ class Investment(db.Model):
      amount = db.Column(db.Float, nullable= False)
      date = db.Column(db.Date)
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
-     updated_at = db.Column(db.DateTime, deafult=datetime.utcnow, onupdate=datetime.utcnow)
+     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
      profit_loss_record = db.relationship('ProfitLoss', backref='investment', uselist=False)
 
@@ -60,7 +60,7 @@ class ProfitLoss (db.Model):
      profit_loss_amount = db.Column(db.Float)
      transaction_date = db.Column(db.Date)
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
-     updated_at = db.Column(db.DateTime, deafult=datetime.utcnow, onupdate=datetime.utcnow)
+     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 class Transaction(db.Model):
@@ -74,7 +74,7 @@ class Transaction(db.Model):
      transaction_amount = db.Column(db.Float, nullable=False)
      transaction_units = db.Column(db.Float) # For investments like stocks or crytpocurrencies. Not sure qhat to do with this one though. @Lavenia can step in here.
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
-     updated_at = db.Column(db.DateTime, deafult=datetime.utcnow, onupdate=datetime.utcnow)
+     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
      investment = db.relationship('Investment', backref='transactions', lazy=True)
 

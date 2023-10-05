@@ -84,9 +84,15 @@ def seed_database():
 
 db.session.commit()
 
+if __name__ == "__main__":
+    seed_database()
+
+
 def SeedingDone():
     print("💸Seeding...Done!")
     SeedingDone()
+
+
 
 
 
