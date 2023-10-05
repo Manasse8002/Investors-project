@@ -2,12 +2,13 @@ from models import db, Investment, Investor, Transaction, ProfitLoss
 from faker import Faker
 import random
 from datetime import  timedelta
-from models import db 
+from app import app 
 
 fake = Faker() 
 
 
 def seed_database():
+ with app.app_context():
 
     Investment.query.delete()
     Investor.query.delete()
@@ -82,7 +83,7 @@ def seed_database():
              print("💸Seeding transactions...Done!")
              SeedingTransactionsDone()
 
-db.session.commit()
+    db.session.commit()
 
 if __name__ == "__main__":
     seed_database()

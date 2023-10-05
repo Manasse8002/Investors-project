@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, ForeignKey
 from sqlalchemy.orm import validates 
 
 
@@ -32,7 +32,7 @@ class Investor(db.Model):
      def __init__(self, username, email, password):
           self.username = username
           self.email = email
-          self.password_hash = generate_password_hash(password, method='sha256')
+          self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
     
      def check_password(self, password):
           return check_password_hash(self.password_hash, password)
@@ -57,10 +57,13 @@ class ProfitLoss (db.Model):
 
      id = db.Column(db.Integer, primary_key=True)
      investment_id = db.Column(db.Integer, db.ForeignKey('investments.id'))
+     investor_id = db.Column(db.Integer, db.ForeignKey('investors.id'))
      profit_loss_amount = db.Column(db.Float)
      transaction_date = db.Column(db.Date)
      created_at =  db.Column(db.DateTime, default=datetime.utcnow)
      updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+     
 
 
 class Transaction(db.Model):
