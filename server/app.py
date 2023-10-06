@@ -62,7 +62,70 @@ def update_investor(investor_id):
     investor.email = email
     db.session.commit()
 
+   
     return jsonify(message='Investor updated successfully!')
+
+@app.route('/investments', methods=['POST'])
+def create_investment():
+    data = request.get_json()
+    investor_id = data.get('investor_id')
+    name = data.get('name')
+    amount = data.get('amount')
+    date = data.get('date')
+
+    new_investment = Investment(investor_id=investor_id, name=name, amount=amount, date=date)
+    db.session.add(new_investment)
+    db.session.commit()
+
+    return jsonify(message='Investment cretaed successfully!'), 201
+
+@app.route('/investments/<int:investment_id>', methods=['PATCH'])
+def update_investment(investment_id):
+    data = request.get_json()
+    name = data.get('name')
+    amount = data.get('amount')
+    date = data.get('date')
+
+    investment = Investment.query.get(investment_id)
+    if not investment:
+        return jsonify(message='Investment not found'), 404
+    
+    investment.name = name
+    investment.amount = amount
+    investment.date = date
+    db.session.commit()
+
+    return jsonify(message='Investment updated successfully!')
+
+@app.route('/profit-loss', methods=['POST'])
+def create_profit_loss():
+    data = request.get_json()
+    investment_id = data.get('investment_id')
+    amount = data.get('amount')
+    transaction_date = data.get('transaction_date')
+
+    new_profit_loss = ProfitLoss(investment_id=investment_id, profit_or_loss_amount=amount, transaction_date=transaction_date)
+    db.session.add(new_profit_loss)
+    db.session.commit()
+
+    return jsonify(message='Profit/Loss record created successfully!'), 201
+
+
+@app.route('/profit-loss/<int:record_id>', methods=['PATCH'])
+def update_profit_loss(record_id):
+    data = request.get_json()
+    amount = data.get('amount')
+    transaction_date = data.get('transaction_date')
+
+    record = ProfitLoss.qeury.get(record_id)
+    if not record:
+        return jsonify(message='Profit/Loss record not found!'), 404
+    
+    record.profit_or_loss_amount = amount
+    record.transaction_date = transaction_date
+    db.session.commit()
+
+    return jsonify(message='Profit/Loss record successfully!')
 
 
 
