@@ -1,38 +1,36 @@
-import { useEffect, useState } from "react";
-function InvestorsTable() {
+import React, { useEffect, useState } from "react";
+import '../App.css';
+
+function InvestorTable() {
   const [investors, setInvestors] = useState([]);
 
   useEffect(() => {
-    
-    fetch('')
-      .then((response) => response.json())
-      .then((data) => setInvestors(data))
-      .catch((error) => console.error('Error fetching investors:', error));
+    fetch('http://127.0.0.1:5555/investors') 
+      .then(response => response.json())
+      .then(data => {
+        setInvestors(data);
+      });
   }, []);
 
   return (
     <div>
-      <h2>Investors Table</h2>
+      <h1>Investor List</h1>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Username</th>
             <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
             <th>Created At</th>
             <th>Updated At</th>
           </tr>
         </thead>
         <tbody>
-          {investors.map((investor) => (
+          {investors.map(investor => (
             <tr key={investor.id}>
               <td>{investor.id}</td>
-              <td>{investor.name}</td>
+              <td>{investor.username}</td>
               <td>{investor.email}</td>
-              <td>{investor.phone}</td>
-              <td>{investor.address}</td>
               <td>{investor.created_at}</td>
               <td>{investor.updated_at}</td>
             </tr>
@@ -43,4 +41,4 @@ function InvestorsTable() {
   );
 }
 
-export default InvestorsTable;
+export default InvestorTable;
