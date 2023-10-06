@@ -40,7 +40,9 @@ def get_transactions():
 @app.route('/profit-loss', methods=['GET'])
 def get_profit_loss():
     profit_loss_records = ProfitLoss.query.all()
-    profit_loss_list = [{'id': record.id, 'investment_id': record.investment_id, 'amount': record.profit_or_loss_amount, 'date':record.transaction_date.strftime('%Y-%m-%d')} for record in profit_loss_records]
+
+    profit_loss_list = [{'id': record.id, 'investment_id': record.investment_id, 'amount': record.profit_loss_amount, 'date':record.transcation_date.strftime('%Y-%m-%d')} for record in profit_loss_records]
+
     return jsonify(profit_loss_list)
 
 @app.route('/investors', methods=['POST'])
@@ -112,7 +114,7 @@ def create_profit_loss():
     amount = data.get('amount')
     transaction_date = data.get('transaction_date')
 
-    new_profit_loss = ProfitLoss(investment_id=investment_id, profit_or_loss_amount=amount, transaction_date=transaction_date)
+    new_profit_loss = ProfitLoss(investment_id=investment_id, profit_loss_amount=amount, transaction_date=transaction_date)
     db.session.add(new_profit_loss)
     db.session.commit()
 
@@ -128,7 +130,7 @@ def update_profit_loss(record_id):
     if not record:
         return jsonify(message='Profit/Loss record not found!'), 404
     
-    record.profit_or_loss_amount = amount
+    record.profit_loss_amount = amount
     record.transaction_date = transaction_date
     db.session.commit()
 

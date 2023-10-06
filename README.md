@@ -27,10 +27,10 @@ Update an existing transaction (PATCH /transactions/<transaction_id>)
 
 # Data Retrieval:
 
-Retrieve all investors (GET /investors)
-Retrieve all investments (GET /investments)
-Retrieve all profit/loss records (GET /profit-loss)
-Retrieve all transactions (GET /transactions)
+- Retrieve all investors (GET /investors)
+- Retrieve all investments (GET /investments)
+- Retrieve all profit/loss records (GET /profit-loss)
+- Retrieve all transactions (GET /transactions)
 
 # Installation
 - Clone the repository:
