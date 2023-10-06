@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../App.css'
 
-export const Login = (props) => {
+export const Login = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
@@ -22,7 +22,6 @@ export const Login = (props) => {
                
                 <button type="submit">Log In</button>
             </form>
-            <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
         </div>
     )
 }
