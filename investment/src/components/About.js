@@ -2,7 +2,11 @@ import React from 'react';
 import '../App.css';
 
 function About() {
+<<<<<<< HEAD
+  let message = `There are many variations of passages of Lorem Ipsum available but the \n majority have suffered alteration in some injected humour.`;
+=======
   let message = `Investing is even better now . Providing you with the opportunity to invest in more than 100 assets for contionous assesment.`;
+>>>>>>> 231d69d0ecf34e92c8df8f08afa0d8c5d909db42
   return (
     <section className="section-white">
       <div className="container">

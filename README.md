@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# Investors-project
+=======
 # Investment-project
 
 
@@ -156,3 +159,4 @@ This project is licensed under the MIT License.
 
 
 
+>>>>>>> 231d69d0ecf34e92c8df8f08afa0d8c5d909db42
