@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import '../App.css';
+
 function InvestmentsTable() {
   const [investments, setInvestments] = useState([]);
 
   useEffect(() => {
     
-    fetch('')
+    fetch('http://127.0.0.1:5555')
       .then((response) => response.json())
       .then((data) => setInvestments(data))
       .catch((error) => console.error('Error fetching investments:', error));
@@ -13,7 +15,7 @@ function InvestmentsTable() {
   return (
     <div>
       <h2>Investments Table</h2>
-      <table>
+      <table className="common-table">
         <thead>
           <tr>
             <th>ID</th>

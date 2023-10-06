@@ -175,4 +175,119 @@
 	  transition: all 0.25s ease-in-out;
   }
   
+  /* tables.css */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px; /* Add margin to tables for spacing */
+  }
   
+  th, td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: left;
+  }
+  
+  th {
+	background-color: #f2f2f2;
+	font-weight: bold; /* Make header cells bold */
+  }
+  
+  /* Add hover effect on table rows for better user interaction */
+  tr:hover {
+	background-color: #f5f5f5;
+  }
+  
+  /* Apply alternating row colors for better readability */
+  tr:nth-child(even) {
+	background-color: #f9f9f9;
+  }
+  
+  /* Style the table caption (if used) */
+  caption {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	font-weight: bold;
+  }
+  
+  /* Center align text in header cells */
+  th {
+	text-align: center;
+  }
+  
+  /* Center align text in data cells */
+  td {
+	text-align: center;
+  }
+  
+  /* Add padding to the table container */
+  .table-container {
+	padding: 20px;
+  }
+  
+  /* Add a box-shadow to the table container for a card-like effect */
+  .table-container {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+  }
+/* ProfitLossTable.css */
+/* Style the table container */
+.profit-loss-table-container {
+	margin: 20px;
+  }
+  
+  /* Style the buttons */
+  .profit-loss-button {
+	margin: 10px;
+  }
+  
+  /* Style the table */
+  .profit-loss-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px; /* Add top margin for spacing */
+  }
+  
+  .profit-loss-table th,
+  .profit-loss-table td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: left;
+  }
+  
+  .profit-loss-table th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+  }
+  
+  /* Add hover effect on table rows for better user interaction */
+  .profit-loss-table tbody tr:hover {
+	background-color: #f5f5f5;
+  }
+  
+  /* Apply alternating row colors for better readability */
+  .profit-loss-table tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+  }
+  
+  /* Center align text in header cells */
+  .profit-loss-table th {
+	text-align: center;
+  }
+  
+  /* Center align text in data cells */
+  .profit-loss-table td {
+	text-align: center;
+  }
+  
+  /* Add padding to the table container */
+  .profit-loss-table-container {
+	padding: 20px;
+  }
+  
+  /* Add a box-shadow to the table container for a card-like effect */
+  .profit-loss-table-container {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+  }
+	
