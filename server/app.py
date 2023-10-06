@@ -107,7 +107,7 @@ def create_profit_loss():
     amount = data.get('amount')
     transaction_date = data.get('transaction_date')
 
-    new_profit_loss = ProfitLoss(investment_id=investment_id, profit_or_loss_amount=amount, transaction_date=transaction_date)
+    new_profit_loss = ProfitLoss(investment_id=investment_id, profit_loss_amount=amount, transaction_date=transaction_date)
     db.session.add(new_profit_loss)
     db.session.commit()
 
