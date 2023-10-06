@@ -127,9 +127,43 @@ def update_profit_loss(record_id):
 
     return jsonify(message='Profit/Loss record successfully!')
 
+@app.route('/transactions', methods=['POST'])
+def create_transaction():
+    data = request.get_json()
+    investment_id = data.get('investment_id')
+    transaction_type = data.get('transaction_type')
+    transaction_amount = data.get('transaction_amount')
+    transaction_units = data.get('transaction_units')
+    transaction_date = data.get('transaction_date')
+
+    new_transaction = Transaction(investment_id=investment_id, transaction_type=transaction_type, transaction_amount=transaction_amount, transaction_units=transaction_units, transaction_date=transaction_date)
+
+    db.session.add(new_transaction)
+    db.session.commit()
+
+    return jsonify(message='Transaction created successfully!'), 201
+
+@app.route('/transactions/<int:transaction_id>', methods=['PATCH'])
+def update_transaction(transaction_id):
+    data = request.get_json()
+    transaction_type = data.get('transaction_type')
+    transaction_amount = data.get('transaction_amount')
+    transaction_units = data.get('transaction_units')
+    transaction_date = data.get('transaction_date')
+
+    transaction = Transaction.query.get(transaction_id)
+    if not transaction:
+        return jsonify(message='Transaction not found'), 404
+    
+    transaction.transaction_type = transaction_type
+    transaction.transaction_amount = transaction_amount
+    transaction.transaction_units = transaction_units
+    transaction.transaction_date = transaction_date
+    db.session.commit()
+
+    return jsonify(message='Transaction updated successfully!')
 
 
- 
 if __name__ == '__main__':
     with app.app_context():
         app.run(port=5555, debug=True)
