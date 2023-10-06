@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from models import db, Transaction, Investment, Investor, ProfitLoss
 from flask_migrate import Migrate 
+import bcrypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///money.db'
