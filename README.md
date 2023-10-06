@@ -1,5 +1,6 @@
 # Investment-project
 
+
 # Description
 This project is a full-stack investment application built with Flask, SQLAlchemy, and Flask-Bcrypt. It allows users to manage their investments, profit/loss records, and transactions. The application provides endpoints to create, read, update, and delete data related to investors, investments, profit/loss records, and transactions.
 
@@ -152,5 +153,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 # License
 This project is licensed under the MIT License.
+
 
 
