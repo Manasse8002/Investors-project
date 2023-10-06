@@ -3,25 +3,22 @@ import { Link } from "react-router-dom";
 import '../navbar.css'
 
 function Navbar() {
-  const [active, setActive] = useState("nav__menu");
+  const [active, setActive] = useState(false); 
   const [icon, setIcon] = useState("nav__toggler");
 
   const navToggle = () => {
-    if (active === "nav__menu") {
-      setActive("nav__menu nav__active");
-    } else setActive("nav__menu");
-
-    if (icon === "nav__toggler") {
-      setIcon("nav__toggler toggle");
-    } else setIcon("nav__toggler");
+    setActive(!active); 
+    setIcon(icon === "nav__toggler" ? "nav__toggler toggle" : "nav__toggler");
   };
+
+  const navClass = active ? "nav__menu nav__active" : "nav__menu";
 
   return (
     <nav className="nav">
       <Link to="/" className="nav__brand">
         Investment App
       </Link>
-      <ul className={active}>
+      <ul className={navClass}>
         <li className="nav__item">
           <Link to="/" className="nav__link">
             Home
