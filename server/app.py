@@ -10,6 +10,8 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+
+
 @app.route('/investors', methods=['GET'])
 def get_investors():
     investors = Investor.query.all()
