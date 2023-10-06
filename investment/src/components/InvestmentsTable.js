@@ -5,7 +5,6 @@ function InvestmentsTable() {
   const [investments, setInvestments] = useState([]);
 
   useEffect(() => {
-    
     fetch('http://127.0.0.1:5555')
       .then((response) => response.json())
       .then((data) => setInvestments(data))
