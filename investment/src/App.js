@@ -3,10 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import About from './components/About';
-import InvestorsTable from './components/InvestorsTable';
 import InvestmentsTable from './components/InvestmentsTable';
-import LossesTable from './components/LossTable'
-import ProfitTable from './components/ProfitTable';
+import InvestorsTable from './components/InvestorsTable';
+import ProfitLossTable from './components/ProfitLossTable';
 
 function App() {
   return (
@@ -19,8 +18,8 @@ function App() {
             <Route path="/about" component={About} />
             <Route path="/investments" component={InvestmentsTable} />
             <Route path="/investors" component={InvestorsTable} />
-            <Route path="/losses" component={LossesTable} />
-            <Route path="/profits" component={ProfitTable} />
+            <Route path="/profitloss" component={ProfitLossTable} />
+            
           </Switch>
         </main>
       </div>

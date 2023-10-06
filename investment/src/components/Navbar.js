@@ -43,15 +43,11 @@ function Navbar() {
           </Link>
         </li>
         <li className="nav__item">
-          <Link to="/losses" className="nav__link">
-            Losses
+          <Link to="/profitloss" className="nav__link">
+          Profits & Losses
           </Link>
         </li>
-        <li className="nav__item">
-          <Link to="/profits" className="nav__link">
-            Profits
-          </Link>
-        </li>
+        
       </ul>
       <div onClick={navToggle} className={icon}>
         <div className="line1"></div>
