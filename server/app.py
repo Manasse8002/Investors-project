@@ -33,6 +33,39 @@ def get_profit_loss():
     profit_loss_records = ProfitLoss.query.all()
     profit_loss_list = [{'id': record.id, 'investment_id': record.investment_id, 'amount': record.profit_or_loss_amount, 'date':record.transcation_date.strftime('%Y-%m-%d')} for record in profit_loss_records]
     return jsonify(profit_loss_list)
+
+@app.route('/investors', methods=['POST'])
+def create_investor():
+    data =  request.get_json()
+    username = data.get('username')
+    email = data.get('email')
+    password = ('password')
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    new_investor = Investor(username=username, email=email, password_hash=hashed_password)
+    db.session.add(new_investor)
+    db.session.commit()
+
+    return jsonify(message='Investor created successfully'), 201
+
+@app.route('/investors/<int:investor_id>', methods=['PATCH'])
+def update_investor(investor_id):
+    data = request.get_json()
+    username = data.get('username')
+    email = data.get('email')
+
+    investor = Investor.query.get(investor_id)
+    if not investor:
+        return jsonify(message='Investor not found'), 404
+    
+    investor.username = username
+    investor.email = email
+    db.session.commit()
+
+    return jsonify(message='Investor updated successfully!')
+
+
+
  
 if __name__ == '__main__':
     with app.app_context():

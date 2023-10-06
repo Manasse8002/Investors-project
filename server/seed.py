@@ -20,6 +20,23 @@ def seed_database():
         print("💸Seeding investors...")
     SeedingInvestors()
 
+    investor = Investor(
+            username=fake.user_name(),
+            email=fake.email(),
+            password=fake.password(),
+    )
+    db.session.add(investor)
+
+    investment = Investment(
+                investor_id = investor.id,
+                name=fake.company(),
+                amount=random.uniform(5000, 100000),
+                date=fake.date_between(start_date='-2y', end_date='today')
+    )
+    db.session.add(investment)
+
+    
+
     for _ in range(30):
         investor = Investor(
             username=fake.user_name(),
@@ -70,10 +87,9 @@ def seed_database():
         SeedingTransactions()
        
    
-    with db.session.begin() as session:
-     for _ in range(random.randint(1, 10)):
-        try:
-          if investment.id is not None:
+ 
+        # if investment.id is not None:
+        for _ in range(random.randint(1, 10)):
             transaction = Transaction (
                 investment_id=investment.id,
                 transaction_type=random.choice(['buy', 'sell']),
@@ -81,13 +97,9 @@ def seed_database():
                 transaction_amount=random.uniform(1500, 150000),
                 transaction_units=random.uniform(1, 100)
             )
-            session.add(transaction)
-          else:
-            print("Invalid investment ID:", investment.id)
-
-        except Exception as e:
-            print("Error adding transaction:", e)
-            session.rollback()
+            db.session.add(transaction)
+        # else:
+        #     print("Invalid investment ID:", investment.id)
 
             def SeedingTransactionsDone():
              print("💸Seeding transactions...Done!")
@@ -95,13 +107,15 @@ def seed_database():
 
     db.session.commit()
 
-if __name__ == "__main__":
-    seed_database()
-
-
 def SeedingDone():
     print("💸Seeding...Done!")
+
+if __name__ == "__main__":
+    seed_database()
     SeedingDone()
+
+
+
 
 
 
