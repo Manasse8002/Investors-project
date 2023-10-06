@@ -1,58 +1,60 @@
 import React, { useEffect, useState } from "react";
 import '../App.css';
 
-
 function ProfitLossTable() {
-  const [data, setData] = useState([]);
-  const [tableType, setTableType] = useState("");
+  const [profitLoss, setProfitLoss] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5555') 
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error(`Error fetching ${tableType}:`, error));
-  }, [tableType]);
+    fetch('http://127.0.0.1:5555/profit-loss') 
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setProfitLoss(data);
+      })
+      .catch(error => {
+        setError(error);
+      });
+  }, []);
 
-  const columns = {
-    profit: [
-      "ID",
-      "Investment ID",
-      "Profit Amount",
-      "Profit Date",
-      "Created At",
-      "Updated At",
-    ],
-    loss: [
-      "ID",
-      "Investment ID",
-      "Loss Amount",
-      "Loss Date",
-      "Created At",
-      "Updated At",
-    ],
-  };
-
-  const tableHeaders = columns[tableType] || [];
+  if (error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="profit-loss-table-container">
-      <h2>{`${tableType.charAt(0).toUpperCase() + tableType.slice(1)} Table`}</h2>
-      <button className="profit-loss-button" onClick={() => setTableType("profit")}>Show Profit</button>
-      <button className="profit-loss-button" onClick={() => setTableType("loss")}>Show Loss</button>
-      <table className="profit-loss-table">
+    <div>
+      <h1>Profit/Loss List</h1>
+      <table>
         <thead>
           <tr>
-            {tableHeaders.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
+            <th>ID</th>
+            <th>Investment ID</th>
+            <th>Investor ID</th>
+            <th>Profit/Loss Amount</th>
+            <th>Transaction Date</th>
+            <th>Created At</th>
+            <th>Updated At</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              {tableHeaders.map((header) => (
-                <td key={header}>{item[header.toLowerCase().replace(' ', '_')]}</td>
-              ))}
+          {profitLoss.map(record => (
+            <tr key={record.id}>
+              <td>{record.id}</td>
+              <td>{record.investment_id}</td>
+              <td>{record.investor_id}</td>
+              <td>{record.profit_loss_amount}</td>
+              <td>{record.transaction_date}</td>
+              <td>{record.created_at}</td>
+              <td>{record.updated_at}</td>
             </tr>
           ))}
         </tbody>

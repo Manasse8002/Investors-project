@@ -1,41 +1,57 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../App.css';
 
-function InvestmentsTable() {
+function InvestmentTable() {
   const [investments, setInvestments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5555')
-      .then((response) => response.json())
-      .then((data) => setInvestments(data))
-      .catch((error) => console.error('Error fetching investments:', error));
+    // Update the URL to match your Flask server
+    fetch('http://localhost:5555/investments')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setInvestments(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div>
-      <h2>Investments Table</h2>
-      <table className="common-table">
+      <h1>Investment List</h1>
+      <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Investor ID</th>
-            <th>Investment Amount</th>
-            <th>Investment Date</th>
-            <th>Investment Type</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
-          {investments.map((investment) => (
+          {investments.map(investment => (
             <tr key={investment.id}>
               <td>{investment.id}</td>
-              <td>{investment.investor_id}</td>
-              <td>{investment.investment_amount}</td>
-              <td>{investment.investment_date}</td>
-              <td>{investment.investment_type}</td>
-              <td>{investment.created_at}</td>
-              <td>{investment.updated_at}</td>
+              <td>{investment.name}</td>
+              <td>{investment.amount}</td>
+              <td>{investment.date}</td>
             </tr>
           ))}
         </tbody>
@@ -44,4 +60,4 @@ function InvestmentsTable() {
   );
 }
 
-export default InvestmentsTable;
+export default InvestmentTable;
